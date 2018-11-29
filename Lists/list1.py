@@ -38,14 +38,9 @@ def match_ends(words):
 # Hint: this can be done by making 2 lists and sorting each of them
 # before combining them.
 def front_x(words):
-  #words2 = []
-  #final_list = []
-  #size_words = len(words)
-  #for i in range(0, size_words):
-    #temp = words[i]
-    #if (temp[:1] == 'x'):
-      #words.pop(i)
-  return 
+  words1 = [i for i in words if i[:1] == 'x'] # words with x using List Comprehensions
+  words2 = [i for i in words if i[:1] != 'x'] # words without x using List Comprehensions
+  return sorted(words1) + sorted(words2)
 
 # C. sort_last
 # Given a list of non-empty tuples, return a list sorted in increasing
@@ -54,14 +49,10 @@ def front_x(words):
 # [(2, 2), (1, 3), (3, 4, 5), (1, 7)]
 # Hint: use a custom key= function to extract the last element form each tuple.
 def sort_last(tuples):
-  sorted_list = []
-  size_tuples = len(tuples)
-  i = 0
-  while i < size_tuples:
-    
-  return sorted_list
+  return sorted(tuples, key = lastElement)
 
-
+def lastElement(s):
+  return s[-1]
 # Simple provided test() function used in main() to print
 # what each function returns vs. what it's supposed to return.
 def test(got, expected):
