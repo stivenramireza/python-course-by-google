@@ -43,10 +43,17 @@ import sys
 # Define print_words(filename) and print_top(filename) functions.
 def print_words(filename):
   dict = readFile(filename)
-  for k, v in sorted(dict.items()): print k + " " + str(v)
+  for k, v in sorted(dict.items()): 
+    print k, v
 
 def print_top(filename):
-  return
+  dict = readFile(filename)
+  for key in dict:
+    dict2 = sorted(dict.items(), key = getValuesDic, reverse = True)
+  print dict2
+
+def getValuesDic(s):
+  return s[-1]
 
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
@@ -56,7 +63,7 @@ def readFile(filename):
   dictionary = {}
   lista = []
   counter = 0
-  f = open('small.txt', 'rU')
+  f = open(filename, 'rU')
   for line in f:
     line = line.split()
     for i in line:
