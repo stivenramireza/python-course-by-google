@@ -48,12 +48,12 @@ def print_words(filename):
 
 def print_top(filename):
   dict = readFile(filename)
-  for key in dict:
-    dict2 = sorted(dict.items(), key = getValuesDic, reverse = True)
-  print dict2
+  dict2 = sorted(dict.items(), key = getValuesDic, reverse = True)
+  for item in dict2[:20]:
+    print item[0], item[1]
 
 def getValuesDic(s):
-  return s[-1]
+  return s[1]
 
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
@@ -74,7 +74,6 @@ def readFile(filename):
   del dictionary['--']
   f.close()
   return dictionary
-###
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.

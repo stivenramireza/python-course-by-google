@@ -56,15 +56,32 @@ def print_mimic(mimic_dict, word):
   # +++your code here+++
   return
 
+def readFile(filename):
+  dictionary = {}
+  lista = []
+  counter = 0
+  f = open(filename, 'rU')
+  for line in f:
+    line = line.split()
+    for i in line:
+      lista.append(i)
+  lista2 = [x.lower() for x in lista]
+  for item in lista2:
+    dictionary[item] = dictionary.get(item, 0) + 1
+  del dictionary['--']
+  f.close()
+  return dictionary
 
 # Provided main(), calls mimic_dict() and mimic()
 def main():
   if len(sys.argv) != 2:
     print 'usage: ./mimic.py file-to-read'
     sys.exit(1)
-
-  dict = mimic_dict(sys.argv[1])
-  print_mimic(dict, '')
+  dict = readFile(sys.argv[1])
+  for k, v in sorted(dict.items()): 
+    print k, v
+  #dict = mimic_dict(sys.argv[1])
+  #print_mimic(dict, '')
 
 
 if __name__ == '__main__':
