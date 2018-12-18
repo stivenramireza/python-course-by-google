@@ -34,14 +34,35 @@ Suggested milestones for incremental development:
  -Fix main() to use the extract_names list
 """
 
+def extract_years(filename):
+  f = open(filename, 'r')
+  final_match = ''
+  match = re.search(r'(<h3.*>)', f.read())
+  match2 = re.search(r'\d\d\d\d', match.group())
+  if match2:
+    final_match = match2.group()
+  else:
+    final_match = None
+  return final_match
+  
+def extract_names_rank(filename):
+  f = open(filename, 'r')
+  final_match = ''
+  tuples = re.findall(r'<td>(\d+)</td><td>(\w+)</td>\<td>(\w+)</td>', f.read())
+  for tuple in tuples:
+    print tuple[0]  ## rank
+    print tuple[1]  ## boy_name
+    print tuple[2]  ## girl_name
+
 def extract_names(filename):
   """
   Given a file name for baby.html, returns a list starting with the year string
   followed by the name-rank strings in alphabetical order.
   ['2006', 'Aaliyah 91', Aaron 57', 'Abagail 895', ' ...]
   """
-  # +++your code here+++
-  return
+  f = open(filename, 'r')
+  strings = re.findall(r'', f.read())
+  return strings
 
 
 def main():
@@ -58,6 +79,7 @@ def main():
   summary = False
   if args[0] == '--summaryfile':
     summary = True
+    extract_names_rank(args[1])
     del args[0]
 
   # +++your code here+++
