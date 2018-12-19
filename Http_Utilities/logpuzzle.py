@@ -30,11 +30,6 @@ def read_urls(filename):
   extracting the hostname from the filename itself.
   Screens out duplicate urls and returns the urls sorted into
   increasing order."""
-  def read_urls(filename):
-  """Returns a list of the puzzle urls from the given log file,
-  extracting the hostname from the filename itself.
-  Screens out duplicate urls and returns the urls sorted into
-  increasing order."""
   underbar = filename.index('_')
   host = filename[underbar + 1:]
 
