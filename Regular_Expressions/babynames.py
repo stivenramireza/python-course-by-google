@@ -45,25 +45,29 @@ def extract_years(filename):
     final_match = None
   return final_match
   
-def extract_names_rank(filename):
-  f = open(filename, 'r')
-  final_match = ''
-  tuples = re.findall(r'<td>(\d+)</td><td>(\w+)</td>\<td>(\w+)</td>', f.read())
-  for tuple in tuples:
-    print tuple[0]  ## rank
-    print tuple[1]  ## boy_name
-    print tuple[2]  ## girl_name
-
 def extract_names(filename):
   """
   Given a file name for baby.html, returns a list starting with the year string
   followed by the name-rank strings in alphabetical order.
   ['2006', 'Aaliyah 91', Aaron 57', 'Abagail 895', ' ...]
   """
-  f = open(filename, 'r')
-  strings = re.findall(r'', f.read())
-  return strings
-
+  lista = []
+  dict_boy = dict()
+  dict_girl = dict()
+  dict_boy_orden = dict()
+  dict_girl_orden = dict()
+  f = open(filename, 'rU')
+  final_match = ''
+  tuples = re.findall(r'<td>(\d+)</td><td>(\w+)</td>\<td>(\w+)</td>', f.read())
+  for tuple in tuples:
+    dict_boy[tuple[0]] = tuple[1] # boy_name
+    dict_girl[tuple[0]] = tuple[2] # girl_name
+  lista.insert(0, extract_years(filename))
+  for k, v in dict_boy.items():
+    lista.append(v + ' ' + k)
+  for k, v in dict_girl.items():
+    lista.append(v + ' ' + k)
+  return sorted(lista)
 
 def main():
   # This command-line parsing code is provided.
@@ -79,8 +83,20 @@ def main():
   summary = False
   if args[0] == '--summaryfile':
     summary = True
-    extract_names_rank(args[1])
     del args[0]
+
+  for filename in args:
+    names = extract_names(filename)
+
+    # Make text out of the whole list
+    text = '\n'.join(names)
+    match = re.search(r'baby\d\d\d\d', filename)
+    if summary:
+      outf = open(match.group() + '-summary.html', 'w')
+      outf.write(text + '\n')
+      outf.close()
+    else:
+      print text
 
   # +++your code here+++
   # For each filename, get the names, then either print the text output
